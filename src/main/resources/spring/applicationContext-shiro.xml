@@ -12,7 +12,24 @@
 		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
-
-	
+			<bean id="shiroDemoRealm" class="com.beautifulsoup.shiro.ssmdemo.realm.ShiroDemoRealm"/>
+			<!-- 配置安全管理器 -->
+			<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+				<property name="realm" ref="shiroDemoRealm" />
+			</bean>
+			<!-- Shiro 的Web过滤器 -->
+			<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+				<property name="securityManager" ref="securityManager" />
+				<!-- 如果没有认证将要跳转的登陆地址 -->
+				<property name="loginUrl" value="/login.action" />
+				<!-- 没有权限跳转的地址 -->
+				<property name="unauthorizedUrl" value="/refuse.jsp" />
+				<property name="filterChainDefinitions">
+					<value>
+						/** = anon
+					</value>
+				</property>
+			</bean>
+		
 
 </beans>
