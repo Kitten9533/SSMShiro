@@ -22,6 +22,7 @@
 			<!-- 配置安全管理器 -->
 			<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 				<property name="realm" ref="shiroDemoRealm" />
+				<property name="cacheManager" ref="cacheManager"></property>
 			</bean>
 			<!-- Shiro 的Web过滤器 -->
 			<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -32,9 +33,9 @@
 				<property name="unauthorizedUrl" value="/refuse.action" />
 				<property name="filterChainDefinitions">
 					<value>
-						<!-- 定义所需的权限信息 -->
-						/item/query.action=perms[item:query]
-						/item/delete02.action=perms[item:delete:02]
+						<!-- 定义所需的权限信息,用注解的方式校验权限的时候,下面的可以屏蔽 -->
+						<!-- /item/query.action=perms[item:query]
+						/item/delete02.action=perms[item:delete:02] -->
 						<!-- 定义退出的路径 -->
 						/logout.action = logout
 						/** = authc					
@@ -42,5 +43,9 @@
 				</property>
 			</bean>
 		
+		<!-- 缓存管理器 -->
+		<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    		<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
+    	</bean>
 
 </beans>

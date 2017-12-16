@@ -32,5 +32,11 @@
 			<value>5242880</value>
 		</property>
 	</bean>
-
+	
+	
+	<!-- 开启AOP和Shiro的注解支持 -->
+	<aop:config proxy-target-class="true"></aop:config>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
 </beans>
