@@ -46,7 +46,7 @@ public class ShiroDemoRealm extends AuthorizingRealm{
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
 		//得到认证成功之后凭证的身份信息
-		String username=(String) principals.getPrimaryPrincipal();
+		String username=((User) principals.getPrimaryPrincipal()).getUsername();
 		//查询数据库得到所有的权限列表
 		List<String> permissionList=new ArrayList<String>();
 		UserCustom userCustom = customMapper.findUserCustomByUsername(username);

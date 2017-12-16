@@ -33,4 +33,9 @@ public class IndexController {
 		}
 		return "login";
 	}
+	
+	@RequestMapping("/refuse")
+	public String refuse(){
+		return "refuse";
+	}
 }

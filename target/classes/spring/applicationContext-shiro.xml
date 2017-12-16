@@ -29,9 +29,12 @@
 				<!-- 如果没有认证将要跳转的登陆地址 -->
 				<property name="loginUrl" value="/login.action" />
 				<!-- 没有权限跳转的地址 -->
-				<property name="unauthorizedUrl" value="/refuse.jsp" />
+				<property name="unauthorizedUrl" value="/refuse.action" />
 				<property name="filterChainDefinitions">
 					<value>
+						<!-- 定义所需的权限信息 -->
+						/item/query.action=perms[item:query]
+						/item/delete02.action=perms[item:delete:02]
 						<!-- 定义退出的路径 -->
 						/logout.action = logout
 						/** = authc					
