@@ -70,7 +70,7 @@ public class ShiroDemoRealm extends AuthorizingRealm{
 		String username=(String) token.getPrincipal();
 		User user = mapper.findByUsername(username);
 		if(null!=user){
-			SimpleAuthenticationInfo authenticationInfo=new SimpleAuthenticationInfo(username, user.getPassword(),
+			SimpleAuthenticationInfo authenticationInfo=new SimpleAuthenticationInfo(user, user.getPassword(),
 					ByteSource.Util.bytes(user.getSalt()),TAG);
 			return authenticationInfo;
 		}

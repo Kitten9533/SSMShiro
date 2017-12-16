@@ -12,7 +12,13 @@
 		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
-			<bean id="shiroDemoRealm" class="com.beautifulsoup.shiro.ssmdemo.realm.ShiroDemoRealm"/>
+			<bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+				<property name="hashAlgorithmName" value="md5"/>
+				<property name="hashIterations" value="3"/>
+			</bean>
+			<bean id="shiroDemoRealm" class="com.beautifulsoup.shiro.ssmdemo.realm.ShiroDemoRealm">
+				<property name="credentialsMatcher" ref="credentialsMatcher"></property>
+			</bean>
 			<!-- 配置安全管理器 -->
 			<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 				<property name="realm" ref="shiroDemoRealm" />
@@ -26,7 +32,9 @@
 				<property name="unauthorizedUrl" value="/refuse.jsp" />
 				<property name="filterChainDefinitions">
 					<value>
-						/** = anon
+						<!-- 定义退出的路径 -->
+						/logout.action = logout
+						/** = authc					
 					</value>
 				</property>
 			</bean>
